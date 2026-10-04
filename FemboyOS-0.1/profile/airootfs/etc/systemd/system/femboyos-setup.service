@@ -1,0 +1,11 @@
+[Unit]
+Description=FemboyOS initial configuration
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/femboyos-setup
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

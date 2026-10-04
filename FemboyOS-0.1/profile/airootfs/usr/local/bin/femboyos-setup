@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+
+# FemboyOS visual defaults
+install -d /usr/share/backgrounds/FemboyOS
+install -d /etc/skel/.config
+
+# Enable the graphical login manager and network service.
+systemctl enable sddm.service
+systemctl enable NetworkManager.service
+
+# Keep the live environment pleasant and recognizable.
+cat > /etc/os-release <<'EOF'
+NAME="FemboyOS"
+PRETTY_NAME="FemboyOS 0.1"
+ID=femboyos
+ID_LIKE=arch
+VERSION_ID="0.1"
+ANSI_COLOR="38;5;213"
+HOME_URL="https://example.invalid/femboyos"
+EOF
+
+# Friendly shell prompt for the live system.
+cat > /etc/skel/.bashrc <<'EOF'
+[[ $- != *i* ]] && return
+PS1='\[\e[38;5;213m\]\u@\h\[\e[0m\] \[\e[38;5;117m\]\w\[\e[0m\] ♡ '
+alias ll='ls -lah'
+alias cls='clear'
+fastfetch
+EOF
